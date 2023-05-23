@@ -146,7 +146,7 @@ def main():
                 message = parse_status(homework[0])
                 send_message(bot, message)
             else:
-                logger.debug("В ответе полученном от API отсутсвуют новые статусы")
+                logger.debug("В ответе от API отсутсвуют новые статусы")
             current_timestamp = int(time.time())
         except Exception as error:
             message_error = f'Сбой в работе программы: {error}'
