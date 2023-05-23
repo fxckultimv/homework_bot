@@ -1,15 +1,28 @@
-class HomeworkApiError(Exception):
+class InvalidTokenException(Exception):
+    """Исключение - доступность переменных окружения."""
+
     pass
 
 
-class APIStatusCodeError(Exception):
+class InvalidApiExc(Exception):
+    """Исключение - корректность ответа API."""
+
     pass
 
 
-class EndPointError(Exception):
+class EmptyListException(Exception):
+    """Исключение - статус работы не изменился."""
+
     pass
 
 
-class StatusTypeError(Exception):
+class InvalidResponseExc(Exception):
+    """Исключение - status_code API != 200."""
+
     pass
 
+
+class InvalidJsonExc(Exception):
+    """Исключение - Некорректное декодирование JSON."""
+
+    pass
