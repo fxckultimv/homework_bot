@@ -48,7 +48,7 @@ def send_message(bot, message):
 
 
 def get_api_answer(current_timestamp):
-    """Получение ответа от API"""
+    """Получение ответа от API."""
     timestamp = current_timestamp or int(time.time())
     params = {'from_date': timestamp}
     response = requests.get(ENDPOINT, headers=HEADERS, params=params)
@@ -64,7 +64,7 @@ def get_api_answer(current_timestamp):
 
 
 def check_response(response):
-    """Проверка ответа от API"""
+    """Проверка ответа от API."""
     if not isinstance(response, dict):
         raise TypeError('Ответ от API не является словарем.')
     hws = response.get('homeworks')
@@ -77,7 +77,7 @@ def check_response(response):
 
 
 def parse_status(homework):
-    """Проверка статуса парсинга"""
+    """Проверка статуса парсинга."""
     homework_name = homework.get('homework_name')
     if not homework_name:
         raise KeyError(f'Пустое/отсутствует поле: {homework_name}')
@@ -89,12 +89,12 @@ def parse_status(homework):
 
 
 def check_tokens():
-    """Проверка токенов"""
+    """Проверка токенов."""
     return all([PRACTICUM_TOKEN, TELEGRAM_TOKEN, TELEGRAM_CHAT_ID])
 
 
 def main():
-    """Основная логика бота вынесена в эту функцию"""
+    """Основная логика бота вынесена в эту функцию."""
     if not check_tokens():
         logger.critical('Отсутствует переменная окружения.')
         sys.exit()
