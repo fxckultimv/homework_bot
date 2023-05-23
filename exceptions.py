@@ -1,23 +1,15 @@
-class Error(Exception):
-    """Базовый класс для исключений."""
+class HomeworkApiError(Exception):
+    pass
 
 
-class ExceptionSendMessageError(Error):
-    """Исключение при сбое при отправки сообщения."""
-
-    def __init__(self, message):
-        self.message = message
+class APIStatusCodeError(Exception):
+    pass
 
 
-class ExceptionStatusError(Exception):
-    """Исключение при некорректном статусе ответа."""
-
-    def __init__(self, message):
-        self.message = message
+class EndPointError(Exception):
+    pass
 
 
-class ExceptionGetAPYError(Exception):
-    """Исключение при ошибке запроса к API."""
+class StatusTypeError(Exception):
+    pass
 
-    def __init__(self, message):
-        self.message = message
