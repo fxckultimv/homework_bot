@@ -51,12 +51,11 @@ logger.addHandler(
 def check_tokens():
     """Функция для проверки доступности переменных окружения."""
     if all([PRACTICUM_TOKEN, TELEGRAM_TOKEN, TELEGRAM_CHAT_ID]):
-        logger.debug("Проверены переменные окружения, все подгружены")
+        return logger.debug("Проверены переменные окружения, все подгружены")
     else:
         logger.critical('Отсутствует обязательная переменная окружения,'
                         'Программа принудительно остановлена.'
                         )
-        SystemExit
 
 
 def send_message(bot, message):
