@@ -4,6 +4,7 @@ import os
 import time
 
 import requests
+import exceptions
 import telegram
 from dotenv import load_dotenv
 
@@ -47,25 +48,15 @@ logger.addHandler(
 )
 
 
-class TokenError(Exception):
-    """Ошибка токенов."""
-
-
-class HomeworksKeyError(Exception):
-    """В ответе API домашки нет ключа homeworks."""
-
-
-class MissedKeyExceptionError(Exception):
-    """."""
-
-
-class WrongDataFormatError(Exception):
-    """."""
-
-
 def check_tokens():
     """Функция для проверки доступности переменных окружения."""
-    return all([PRACTICUM_TOKEN, TELEGRAM_TOKEN, TELEGRAM_CHAT_ID])
+    if all([PRACTICUM_TOKEN, TELEGRAM_TOKEN, TELEGRAM_CHAT_ID]):
+        logger.debug("Проверены переменные окружения, все подгружены")
+    else:
+        logger.critical('Отсутствует обязательная переменная окружения,'
+                        'Программа принудительно остановлена.'
+                        )
+        SystemExit
 
 
 def send_message(bot, message):
@@ -139,7 +130,7 @@ def main():
     """Основная логика работы бота."""
     if not check_tokens():
         logger.critical('Отсутствие обязательных переменных окружения')
-        raise TokenError('Ошибка токенов')
+        raise exceptions.TokenError('Ошибка токенов')
     bot = telegram.Bot(token=TELEGRAM_TOKEN)
     timestamp = int(time.time())
     last_message = ''
