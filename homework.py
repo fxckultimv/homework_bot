@@ -50,12 +50,8 @@ logger.addHandler(
 
 def check_tokens():
     """Функция для проверки доступности переменных окружения."""
-    if all([PRACTICUM_TOKEN, TELEGRAM_TOKEN, TELEGRAM_CHAT_ID]):
-        return logger.debug("Проверены переменные окружения, все подгружены")
-    else:
-        logger.critical('Отсутствует обязательная переменная окружения,'
-                        'Программа принудительно остановлена.'
-                        )
+    return all([PRACTICUM_TOKEN, TELEGRAM_TOKEN, TELEGRAM_CHAT_ID])
+# Логика вынесена в функцию main
 
 
 def send_message(bot, message):
@@ -127,9 +123,16 @@ def parse_status(homework):
 
 def main():
     """Основная логика работы бота."""
-    if not check_tokens():
-        logger.critical('Отсутствие обязательных переменных окружения')
-        raise exceptions.TokenError('Ошибка токенов')
+    if check_tokens():
+        logging.info('Токены проверены, ошибок не обнаружено.')
+    else:
+        logging.critical(
+            'Отсутствует переменная окружения'
+        )
+        raise exceptions.TokenError(
+            'Не обнаружен один из ключей PRACTICUM_TOKEN,'
+            'TELEGRAM_TOKEN, TELEGRAM_CHAT_ID'
+        )
     bot = telegram.Bot(token=TELEGRAM_TOKEN)
     timestamp = int(time.time())
     last_message = ''
